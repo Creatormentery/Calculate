@@ -4,9 +4,11 @@ public class Main {
     public static void main(String[] args) throws Exception{
 
         FileReader fr = new FileReader("input.txt");
+        FileWriter fw = new FileWriter("output.txt");
         Scanner sc = new Scanner (fr);
         String line = sc.nextLine();
         sc.close(); // не забывай закрывать поток !
+        fr.close();
         double a = 0.0;
         double b = 0.0;
         char znak = ' ';
@@ -51,17 +53,22 @@ public class Main {
         if(is) {
             switch(znak){
                 case('+'): System.out.print(a + b);
+                    fw.write(String.valueOf(a + b));
                     break;
                 case('-'): System.out.print(a - b);
+                    fw.write(String.valueOf(a - b));
                     break;
                 case('/'):
                     if(b==0.0) System.out.print("Error! Division by zero"); // да, тут без throw, если честно я не пытался его написать, потому что деление на 0 и на 0.0 вроде как тоже самое, а вроде и нет, лучше в некоторых местах опустить условие и схитрить )))
                     else	 System.out.print(a / b);
+                    fw.write(String.valueOf(a / b));
                     break;
                 case('*'): System.out.print(a * b);
+                    fw.write(String.valueOf(a * b));
                     break;
             }
         }
+        fw.close();
 
     }
     public static char result(String nms, char znak) throws Exception { //так то можно легко обойтись и без этой конструкции, но как я сказал ранее, мы изучаем тему throw , так что нужно изгибаться по максимуму что-бы реализовывать через эти ... дебри, если можно так выразится
@@ -69,6 +76,6 @@ public class Main {
             znak = nms.charAt(0);
             return znak;
         }
-        else throw new Exception("OperationError");//Обрати вниманеи что это сообщение  отличается от заданого в условии. Именно это, сообщение, должно быть читабельным для программы, так что дальше мы просто через System.out.print выведем нужное нам сообщение.
+        else throw new Exception("OperationError");//Обрати вниманеи что это сообщение  отличается от заданого в условии. Именно это, сообщение, должно быть читабельным для программы, так что дальше мы просто через System.out.print выведем нужное нам сообщение
     }
 }
